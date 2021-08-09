@@ -1,0 +1,65 @@
+<head>
+  <title>なんでもツール１</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<p>password or 計算機</p>
+<p>><sapn class="result"></sapn></p>
+<p class="status"></p>
+<table>
+  <tr>
+    <td><input type="button" value="1"></td>
+    <td><input type="button" value="2"></td>
+    <td><input type="button" value="3"></td>
+    <td><button type="button" id="cancel">cancel</button></td>
+  </tr>
+  <tr>
+    <td><input type="button" value="4"></td>
+    <td><input type="button" value="5"></td>
+    <td><input type="button" value="6"></td>
+    <td><button type="button" id="puls">+</button></td>
+  </tr>
+  <tr>
+    <td><input type="button" value="7"></td>
+    <td><input type="button" value="8"></td>
+    <td><input type="button" value="9"></td>
+    <td><button type="button" id="result">=</button></td>
+  </tr>
+
+</table>
+<script>
+  $(function() {
+    let isClickAddButton = false;
+    let firstNumber = 0;
+
+    $('input').on('click', function() {
+      $('.result').append($(this).val());
+      let index = $('.result').text().indexOf('+ ');
+      $('.status').text();
+    });
+
+    $('#cancel').on('click', function() {
+      let text = $('.result').text();
+      const length = text.length;
+      const changedText = text.slice(0, -1);
+      $('.result').text(changedText);
+    });
+
+    $('#puls').on('click', function() {
+      if (!isClickAddButton) {
+        firstNumber = +($('.result').text());
+        $('.result').append(' + ');
+        isClickAddButton = true;
+      }
+    });
+
+    $('#result').on('click', function() {
+      if (isClickAddButton) {
+        const index = $('.result').text().indexOf('+ ');
+        let lastNumber = +($('.result').text().slice(index + 2, $('.result').text().length));
+        $('.result').text(firstNumber + lastNumber);
+        isClickAddButton = false;
+      }
+    });
+    
+  });
+</script>
